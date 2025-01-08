@@ -10,6 +10,20 @@ import AudioPlayer from './components/AudioPlayer'
 export default function PersonalizedBirthdayPage() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [windowHeight, setWindowHeight] = useState<number>(0);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+  
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+  
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,10 +44,10 @@ export default function PersonalizedBirthdayPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-100 to-purple-200 flex flex-col items-center justify-center p-4 relative">
-      {showConfetti && <Confetti width={windowSize.width} height={windowSize.height} />}
+      {showConfetti && <Confetti width={windowSize.width} height={windowHeight} />}
       <header className="text-center mb-8">
         <h1 className="text-4xl md:text-6xl font-bold text-purple-800 mb-2">Parabéns, Mariana!</h1>
-        <p className="text-xl text-pink-600">❣️ Que todos seus sonhos seu realizem ❣️</p>
+        <p className="text-[18px] text-pink-600">❣️ Que todos seus sonhos seu realizem ❣️</p>
       </header>
       
       <main className="max-w-4xl w-full">
@@ -53,7 +67,7 @@ export default function PersonalizedBirthdayPage() {
             className="rounded-lg shadow-lg p-3 border-2"
           />
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center mb-8">
+        <div className="bg-orange-100 p-6 rounded-lg shadow-lg text-center mb-8">
           <h2 className="text-2xl font-semibold text-purple-700 mb-4">Uma mensagem de Hogwarts</h2>
           <p className="text-lg text-gray-700 mb-4">
             Mariana,<br /><br />
@@ -75,7 +89,7 @@ export default function PersonalizedBirthdayPage() {
        
         <div className="text-center">
           <Button onClick={handleCelebrate} size="lg" className="bg-pink-500 hover:bg-pink-600 text-white">
-            Cast a Celebration Charm!
+          🎉 Celebrar 🎉
           </Button>
         </div>
 
